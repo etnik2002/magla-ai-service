@@ -1,0 +1,511 @@
+import React, { useState } from 'react';
+
+function App() {
+  const [activeLink, setActiveLink] = useState('Home');
+  
+  // Sample product data
+  const products = [
+    {
+      id: 1,
+      title: 'Minimalist Watch',
+      description: 'Elegant timepiece with a clean design and premium materials.',
+      price: 129.99,
+      image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'
+    },
+    {
+      id: 2,
+      title: 'Wireless Earbuds',
+      description: 'Crystal clear sound with noise cancellation and long battery life.',
+      price: 89.99,
+      image: 'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'
+    },
+    {
+      id: 3,
+      title: 'Leather Backpack',
+      description: 'Handcrafted from premium leather with multiple compartments.',
+      price: 149.99,
+      image: 'https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'
+    }
+  ];
+
+  // Sample testimonials
+  const testimonials = [
+    {
+      id: 1,
+      name: 'Sarah Johnson',
+      role: 'Regular Customer',
+      text: 'The quality of products is outstanding. I\'ve been shopping here for years and have never been disappointed.',
+      avatar: 'https://randomuser.me/api/portraits/women/32.jpg'
+    },
+    {
+      id: 2,
+      name: 'Michael Chen',
+      role: 'Tech Enthusiast',
+      text: 'Fast shipping and excellent customer service. Their tech products are always cutting edge.',
+      avatar: 'https://randomuser.me/api/portraits/men/44.jpg'
+    }
+  ];
+
+  // Handle add to cart
+  const handleAddToCart = (productId) => {
+    console.log(`Added product ${productId} to cart`);
+    // In a real app, this would add the product to a cart state or context
+  };
+
+  return (
+    <div className="app">
+      {/* Global Styles */}
+      <style>
+        {`
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          }
+          
+          body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+          }
+          
+          .app {
+            max-width: 100%;
+            overflow-x: hidden;
+          }
+          
+          .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+          }
+          
+          .btn {
+            display: inline-block;
+            background-color: #4a6cf7;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+          }
+          
+          .btn:hover {
+            background-color: #3a5ce5;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.2);
+          }
+          
+          .btn-outline {
+            background-color: transparent;
+            border: 2px solid #4a6cf7;
+            color: #4a6cf7;
+          }
+          
+          .btn-outline:hover {
+            background-color: #4a6cf7;
+            color: white;
+          }
+          
+          .section {
+            padding: 80px 0;
+          }
+          
+          .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #333;
+          }
+          
+          @media (max-width: 768px) {
+            .section {
+              padding: 60px 0;
+            }
+            
+            .section-title {
+              font-size: 28px;
+              margin-bottom: 30px;
+            }
+          }
+        `}
+      </style>
+      
+      {/* Navigation */}
+      <nav style={{
+        backgroundColor: 'white',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+      }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '20px',
+          maxWidth: '1200px',
+          margin: '0 auto',
+        }}>
+          <div style={{
+            fontSize: '24px',
+            fontWeight: 'bold',
+            color: '#4a6cf7',
+          }}>
+            ModernShop
+          </div>
+          
+          <div style={{
+            display: 'flex',
+            gap: '30px',
+          }}>
+            {['Home', 'Shop', 'About', 'Contact'].map(link => (
+              <a 
+                key={link}
+                href={`#${link.toLowerCase()}`}
+                onClick={() => setActiveLink(link)}
+                style={{
+                  color: activeLink === link ? '#4a6cf7' : '#333',
+                  textDecoration: 'none',
+                  fontWeight: activeLink === link ? '600' : '400',
+                  position: 'relative',
+                  padding: '5px 0',
+                }}
+              >
+                {link}
+                {activeLink === link && (
+                  <span style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '2px',
+                    backgroundColor: '#4a6cf7',
+                  }} />
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      </nav>
+      
+      {/* Hero Section */}
+      <section id="home" style={{
+        backgroundColor: 'white',
+        padding: '100px 0',
+        textAlign: 'center',
+      }}>
+        <div className="container" style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '30px',
+        }}>
+          <h1 style={{
+            fontSize: '48px',
+            fontWeight: '800',
+            maxWidth: '800px',
+            margin: '0 auto',
+            color: '#333',
+          }}>
+            Discover Premium Products for Modern Living
+          </h1>
+          
+          <p style={{
+            fontSize: '18px',
+            color: '#666',
+            maxWidth: '600px',
+            margin: '0 auto',
+          }}>
+            Curated collection of high-quality products designed to enhance your lifestyle. Free shipping on orders over $50.
+          </p>
+          
+          <div style={{
+            display: 'flex',
+            gap: '20px',
+            marginTop: '20px',
+          }}>
+            <button className="btn">
+              Shop Now
+            </button>
+            <button className="btn btn-outline">
+              Learn More
+            </button>
+          </div>
+        </div>
+      </section>
+      
+      {/* Products Section */}
+      <section id="shop" className="section" style={{
+        backgroundColor: '#f8f9fa',
+      }}>
+        <div className="container">
+          <h2 className="section-title">Featured Products</h2>
+          
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '30px',
+          }}>
+            {products.map(product => (
+              <div key={product.id} style={{
+                backgroundColor: 'white',
+                borderRadius: '10px',
+                overflow: 'hidden',
+                boxShadow: '0 5px 15px rgba(0, 0, 0, 0.05)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                cursor: 'pointer',
+                ':hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+                }
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-5px)';
+                e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.05)';
+              }}
+              >
+                <img 
+                  src={product.image || "/placeholder.svg"} 
+                  alt={product.title}
+                  style={{
+                    width: '100%',
+                    height: '200px',
+                    objectFit: 'cover',
+                  }}
+                />
+                
+                <div style={{ padding: '20px' }}>
+                  <h3 style={{
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    marginBottom: '10px',
+                  }}>
+                    {product.title}
+                  </h3>
+                  
+                  <p style={{
+                    color: '#666',
+                    fontSize: '14px',
+                    marginBottom: '15px',
+                    height: '45px',
+                  }}>
+                    {product.description}
+                  </p>
+                  
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                    <span style={{
+                      fontSize: '18px',
+                      fontWeight: '700',
+                      color: '#4a6cf7',
+                    }}>
+                      ${product.price}
+                    </span>
+                    
+                    <button 
+                      className="btn"
+                      style={{
+                        padding: '8px 16px',
+                        fontSize: '14px',
+                      }}
+                      onClick={() => handleAddToCart(product.id)}
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Testimonials Section */}
+      <section className="section" style={{
+        backgroundColor: 'white',
+      }}>
+        <div className="container">
+          <h2 className="section-title">What Our Customers Say</h2>
+          
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '30px',
+          }}>
+            {testimonials.map(testimonial => (
+              <div key={testimonial.id} style={{
+                backgroundColor: '#f8f9fa',
+                borderRadius: '10px',
+                padding: '30px',
+                boxShadow: '0 5px 15px rgba(0, 0, 0, 0.05)',
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '20px',
+                }}>
+                  <img 
+                    src={testimonial.avatar || "/placeholder.svg"} 
+                    alt={testimonial.name}
+                    style={{
+                      width: '60px',
+                      height: '60px',
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      marginRight: '15px',
+                    }}
+                  />
+                  
+                  <div>
+                    <h4 style={{
+                      fontSize: '18px',
+                      fontWeight: '600',
+                    }}>
+                      {testimonial.name}
+                    </h4>
+                    
+                    <p style={{
+                      color: '#666',
+                      fontSize: '14px',
+                    }}>
+                      {testimonial.role}
+                    </p>
+                  </div>
+                </div>
+                
+                <p style={{
+                  color: '#333',
+                  fontSize: '16px',
+                  lineHeight: '1.7',
+                }}>
+                  "{testimonial.text}"
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Footer */}
+      <footer id="contact" style={{
+        backgroundColor: '#333',
+        color: 'white',
+        padding: '60px 0 30px',
+      }}>
+        <div className="container">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '40px',
+            marginBottom: '40px',
+          }}>
+            <div>
+              <h3 style={{
+                fontSize: '24px',
+                fontWeight: 'bold',
+                marginBottom: '20px',
+                color: '#4a6cf7',
+              }}>
+                ModernShop
+              </h3>
+              
+              <p style={{
+                color: '#ccc',
+                marginBottom: '20px',
+              }}>
+                Quality products for modern living. Enhancing your lifestyle with premium selections.
+              </p>
+            </div>
+            
+            <div>
+              <h4 style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                marginBottom: '20px',
+              }}>
+                Quick Links
+              </h4>
+              
+              <ul style={{
+                listStyle: 'none',
+              }}>
+                {['Home', 'Shop', 'About', 'Contact'].map(link => (
+                  <li key={link} style={{ marginBottom: '10px' }}>
+                    <a 
+                      href={`#${link.toLowerCase()}`}
+                      style={{
+                        color: '#ccc',
+                        textDecoration: 'none',
+                        transition: 'color 0.3s ease',
+                      }}
+                      onMouseOver={(e) => e.currentTarget.style.color = 'white'}
+                      onMouseOut={(e) => e.currentTarget.style.color = '#ccc'}
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div>
+              <h4 style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                marginBottom: '20px',
+              }}>
+                Contact Us
+              </h4>
+              
+              <p style={{
+                color: '#ccc',
+                marginBottom: '10px',
+              }}>
+                123 Commerce Street, City Center
+              </p>
+              
+              <p style={{
+                color: '#ccc',
+                marginBottom: '10px',
+              }}>
+                contact@modernshop.com
+              </p>
+              
+              <p style={{
+                color: '#ccc',
+              }}>
+                +1 (555) 123-4567
+              </p>
+            </div>
+          </div>
+          
+          <div style={{
+            borderTop: '1px solid #555',
+            paddingTop: '20px',
+            textAlign: 'center',
+            color: '#999',
+            fontSize: '14px',
+          }}>
+            &copy; {new Date().getFullYear()} ModernShop. All rights reserved.
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+export default App;       

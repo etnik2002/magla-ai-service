@@ -1,0 +1,30 @@
+{
+  "name": "emarket-service",
+  "version": "1.0.0",
+  "description": "zjar",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^4.1.4"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "@octokit/rest": "^21.1.1",
+    "@vercel/sdk": "^1.6.3",
+    "child_process": "^1.0.2",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "fs-extra": "^11.3.0",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.10",
+    "openai": "^4.96.0",
+    "simple-git": "^3.27.0"
+  }
+}
