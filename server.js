@@ -10,10 +10,8 @@ import util from 'util';
 import githubService from './services/githubService.js';
 import { createAndDeploy } from './services/vercelService.js';
 
-// Import OpenAI library
 import { OpenAI } from 'openai';
 
-// Initialize OpenAI client with Deepseek API Key
 const openai = new OpenAI({
     apiKey: "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", // Use your Deepseek API Key
 });
@@ -36,7 +34,7 @@ app.post("/create-project", async (req, res) => {
         const projectBaseName = project_name.trim().replace(/\s+/g, '-').toLowerCase();
         const timestamp = Date.now();
         const folderName = `${projectBaseName}-${timestamp}`;
-        projectPath = path.join(__dirname, '..', 'generated_projects', folderName);
+        projectPath = path.join(__dirname, '..','generated_projects', folderName);
         const srcPath = path.join(projectPath, 'src');
         const dataPath = path.join(srcPath, 'data');
 
@@ -85,20 +83,30 @@ app.post("/create-project", async (req, res) => {
 
         const template_file_string = fs.readFileSync('./ui-templates.js/ecommerce.txt', 'utf-8')
         const prompt = `
-            this is our actual code : ${template_file_string}
-            what i want you to do is just to make some adjustments: 
-            - this is the name of the company : ${req.body.company_name}
-            - these are contact info : ${req.body.email}, ${req.body.phone}
-            - this is address : ${req.body.address}
-
-            add these data where its needed in the website and give me the complete code
-            write only the react code, no other things, i want only the react code so i can directly add to the file
+        You are an expert React developer.
+        
+        Here is the current JSX code of our website template:
+        ${template_file_string}
+        
+        The user wants to build a "${projectType}" type of website.
+        
+        Please make the necessary adjustments to the JSX to match this type of project. In particular:
+        - Update the content and layout to suit a "${projectType}" website.
+        - Use the following company information where appropriate:
+          - Company name: ${req.body.company_name}
+          - Contact email: ${req.body.email}
+          - Contact phone: ${req.body.phone}
+          - Address: ${req.body.address}
+        
+        Make sure the resulting JSX reflects a professional and relevant layout for this project type, incorporating the company details naturally into headers, footers, contact sections, or anywhere else appropriate.
+        
+        ⚠️ Only output the full, updated JSX code, dont use tailwind and dont try to use third party npm packages, return only the App.jsx component, write inline css and return the full jsx code in react. Do not include explanations, comments, or any other text. I want to directly paste the code into my project.
         `;
+        
 
         try {
-            // Using OpenAI client to interact with Deepseek API
             const result = await openai.chat.completions.create({
-                model: "o3-mini", // OpenAI model; Deepseek might use the same model
+                model: "o3-mini",
                 messages: [{ role: "user", content: prompt }]
             });
 
