@@ -14,7 +14,7 @@ import { createAndDeploy } from './services/vercelService.js';
 import { OpenAI } from 'openai';
 
 const openai = new OpenAI({
-    apiKey: "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", // Use your Deepseek API Key
+    apiKey: process.env.OPEN_AI_API_KEY
 });
 
 const execPromise = util.promisify(exec);
