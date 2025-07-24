@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
+import prompt from '../utils/lovable.txt'
 
 import express from 'express';
 import fs from 'fs-extra';
@@ -82,27 +83,6 @@ app.post("/create-project", async (req, res) => {
         const appJsxPath = path.join(projectPath, 'src', 'App.jsx');
 
         const template_file_string = fs.readFileSync('./ui-templates.js/ecommerce.txt', 'utf-8')
-        const prompt = `
-        You are an expert React developer.
-        
-        Here is the current JSX code of our website template:
-        ${template_file_string}
-        
-        The user wants to build a "${projectType}" type of website.
-        
-        Please make the necessary adjustments to the JSX to match this type of project. In particular:
-        - Update the content and layout to suit a "${projectType}" website.
-        - Use the following company information where appropriate:
-          - Company name: ${req.body.company_name}
-          - Contact email: ${req.body.email}
-          - Contact phone: ${req.body.phone}
-          - Address: ${req.body.address}
-        
-        Make sure the resulting JSX reflects a professional and relevant layout for this project type, incorporating the company details naturally into headers, footers, contact sections, or anywhere else appropriate.
-        
-        ⚠️ Only output the full, updated JSX code, dont use tailwind and dont try to use third party npm packages, return only the App.jsx component, write inline css and return the full jsx code in react. Do not include explanations, comments, or any other text. I want to directly paste the code into my project.
-        `;
-        
 
         try {
             const result = await openai.chat.completions.create({
